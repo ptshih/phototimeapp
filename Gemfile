@@ -1,6 +1,8 @@
 source 'http://rubygems.org'
 
 gem 'unicorn'
+gem 'clockwork'
+gem 'resque'
 gem 'json'
 gem 'typhoeus'
 gem 'rails', '3.1.1'
