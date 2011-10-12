@@ -16,13 +16,30 @@ class EyefiJob <ActiveRecord::Base
     
     target_dir = "#{Rails.root}/public/photos"
     thumb_dir = "#{Rails.root}/public/photos/thumbs"
-    target_extension = "jpg"
     
     # For each new file, hash it, copy it, and insert an entry into DB
     count = 0
     new_files.each do |f|
       # Read file descriptor
       infile = File.open(f, "rb")
+      
+      # Find file extension
+      # try and infer from filename
+      target_extension = f.split('.').last.downcase
+      
+      # Find info about the image
+      # type = FastImage.type(f)
+      # if (type == :jpeg)
+      #   target_extension = "jpg"
+      # else
+      #   ext = f.split('.').last.downcase
+      #   # try and infer from filename
+      #   target_extension = ext
+      # end
+      
+      dim = FastImage.size(f) # [width, height]
+      width = dim.nil? ? 0 : dim.first
+      height = dim.nil? ? 0 : dim.last
       
       # Prepare output name
       target_name = "#{UUIDTools::UUID.random_create.to_s}"
@@ -37,11 +54,7 @@ class EyefiJob <ActiveRecord::Base
       # Copy
       outfile.write(infile.read(64)) while not infile.eof?
       
-      # Insert into DB
-      dim = FastImage.size(f) # [width, height]
-      width = dim.first
-      height = dim.last
-      
+      # Insert into DB      
       Photo.create(
         :name => target_name,
         :width => width,
