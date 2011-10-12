@@ -11,7 +11,7 @@ class EyefiJob <ActiveRecord::Base
     # If there are new photos, copy them into the processed directory
     
     # Find all new files dropped by eyefi
-    new_files = Dir.glob("#{Rails.root}/public/eyefi/*").grep(/jpg$/i)
+    new_files = Dir.glob("#{Rails.root}/public/eyefi/**/*").grep(/jpg$/i)
     
     
     target_dir = "#{Rails.root}/public/photos"
@@ -19,6 +19,7 @@ class EyefiJob <ActiveRecord::Base
     target_extension = "jpg"
     
     # For each new file, hash it, copy it, and insert an entry into DB
+    count = 0
     new_files.each do |f|
       # Read file descriptor
       infile = File.open(f, "rb")
@@ -52,7 +53,10 @@ class EyefiJob <ActiveRecord::Base
       
       # delete the original file
       # File.delete(f)
+      count += 1
     end
+    
+    puts "EyefiJob Processed #{count} photos"
   end
   
   def next_file_index

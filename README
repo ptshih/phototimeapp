@@ -1,6 +1,4 @@
 == Setting up the Mac Mini
-* Install Brew
-  /usr/bin/ruby -e "$(curl -fsSL https://raw.github.com/gist/323731)"
 * Install RVM > bash < <(curl -s https://raw.github.com/wayneeseguin/rvm/master/binscripts/rvm-installer)
 * Install Ruby 1.9.2-p290 (set as default)
   gem update --system
@@ -9,6 +7,11 @@
   rvm use ruby-1.9.2-p290 --default
   mkdir local
   echo 'export PATH=$HOME/local/bin:$PATH' >> ~/.bashrc
+
+* Install Brew
+  /usr/bin/ruby -e "$(curl -fsSL https://raw.github.com/gist/323731)"
+* Install ImageMagick
+  brew install imagemagick
 * Install Redis
   brew install redis
   mkdir -p ~/Library/LaunchAgents
@@ -21,12 +24,5 @@
   gem install foreman
 
 
-* Install ImageMagick
-  brew install imagemagick
-
-OR
-
-* Install MacPorts
-  Download dmg from web
-* Install libdevil
-  sudo port install libdevil
+== Documentation
+  MiniMagick -> http://github.com/probablycorey/mini_magick
