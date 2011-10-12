@@ -5,6 +5,8 @@ gem 'clockwork'
 gem 'resque'
 gem 'json'
 gem 'typhoeus'
+gem 'uuidtools'
+gem 'fastimage'
 gem 'rails', '3.1.1'
 
 # Bundle edge Rails instead:
