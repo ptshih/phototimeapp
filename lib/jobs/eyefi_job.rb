@@ -11,7 +11,7 @@ class EyefiJob <ActiveRecord::Base
     # If there are new photos, copy them into the processed directory
     
     # Find all new files dropped by eyefi
-    new_files = Dir.glob("#{Rails.root}/public/eyefi/**/*").grep(/jpg$/i)
+    new_files = Dir.glob("#{Rails.root}/public/eyefi/**/*.{jpg,jpeg,JPG,JPEG,tif,tiff,TIF,TIFF}")
     
     
     target_dir = "#{Rails.root}/public/photos"
@@ -52,7 +52,8 @@ class EyefiJob <ActiveRecord::Base
       outfile.close
       
       # delete the original file
-      # File.delete(f)
+      File.delete(f)
+      
       count += 1
     end
     
