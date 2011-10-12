@@ -5,7 +5,7 @@ require 'clockwork'
 require 'resque'
 include Clockwork
 
-every(1.minutes, 'EyefiJob') {
+every(10.seconds, 'EyefiJob') {
   puts "enqueue eyefijob"
   Resque.enqueue(EyefiJob)
 }

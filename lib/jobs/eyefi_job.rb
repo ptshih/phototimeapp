@@ -15,6 +15,7 @@ class EyefiJob <ActiveRecord::Base
     
     
     target_dir = "#{Rails.root}/public/photos"
+    thumb_dir = "#{Rails.root}/public/photos/thumbs"
     target_extension = "jpg"
     
     # For each new file, hash it, copy it, and insert an entry into DB
@@ -23,10 +24,14 @@ class EyefiJob <ActiveRecord::Base
       infile = File.open(f, "rb")
       
       # Prepare output name
-      target_name = "#{UUIDTools::UUID.random_create.to_s}.#{target_extension}"
-      outfile = File.open("#{target_dir}/#{target_name}", 'wb')
+      target_name = "#{UUIDTools::UUID.random_create.to_s}"
+      outfile = File.open("#{target_dir}/#{target_name}.#{target_extension}", 'wb')
+      thumbfile = "#{thumb_dir}/#{target_name}_thumb.#{target_extension}"
       
       # Perform any image manipulation here
+      thumb = MiniMagick::Image.open(f)
+      thumb.resize "100x100"
+      thumb.write thumbfile
       
       # Copy
       outfile.write(infile.read(64)) while not infile.eof?

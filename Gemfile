@@ -7,6 +7,7 @@ gem 'json'
 gem 'typhoeus'
 gem 'uuidtools'
 gem 'fastimage'
+gem 'mini_magick'
 gem 'rails', '3.1.1'
 
 # Bundle edge Rails instead:
